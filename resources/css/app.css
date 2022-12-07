@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.preview_container .img_container{
+    width: 30%;
+}
+.preview_container {
+    display: flex;
+    gap: 4px;
+    overflow-x: scroll;
+}
+
+.preview_container .img_container p{
+
+
+top: 18%;
+    background-color: black;
+    display: inline-flex;
+    color: white;
+    padding: 6px;
+    left: 90%;
+}
