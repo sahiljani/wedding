@@ -37,9 +37,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [MarriageController::class, 'index'])->name('dashboard');
     Route::get('/users', [MarriageController::class, 'view'])->name('user.view');
     Route::post('/users', [MarriageController::class, 'store'])->name('store.view');
-    Route::post('/edituser/{id}', [MarriageController::class, 'storedetails'])->name('storedetails.view');
-
+    
     Route::get('/edituser/{id}', [MarriageController::class, 'edit'])->name('user.edit');
+    Route::post('/edituser/{id}', [MarriageController::class, 'storedetails'])->name('storedetails.view');
 });
 
 
