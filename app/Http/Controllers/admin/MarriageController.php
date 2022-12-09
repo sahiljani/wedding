@@ -15,6 +15,13 @@ class MarriageController extends Controller
         return view('dashboard');
     }
 
+    public function frontendview($id){        
+        $alldata = Details::where('marriage_id',$id)->first();  
+        $marriage = Marriage::where('id',$id)->first();  
+        return view('themes.theme1.frontend', compact('alldata', 'marriage'));    
+    }
+
+    
     public function store(Request $request){
         // dd($request->name);
         $name = $request->name;        

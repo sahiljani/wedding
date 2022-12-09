@@ -40,6 +40,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     
     Route::get('/edituser/{id}', [MarriageController::class, 'edit'])->name('user.edit');
     Route::post('/edituser/{id}', [MarriageController::class, 'storedetails'])->name('storedetails.view');
+
+    Route::get('/frontend/{id}', [MarriageController::class, 'frontendview'])->name('frontend.view');
+
 });
 
 

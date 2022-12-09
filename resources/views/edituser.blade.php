@@ -47,7 +47,7 @@
     
                         <div class="flex flex-col">
                             <img
-                            class="w-full h-full "
+                            class="w-full h-full"
                             src='{{  URL::asset("/assets/images/$alldata->id/$alldata->bride_image") }}'
                             alt=""
                           />
@@ -130,7 +130,7 @@
                             @foreach (json_decode($alldata->slider_images) as $key => $image)
                             <div class="img_container w-[35%]">
                                 
-                                <p  data-array='{{ $alldata->slider_images }}' class="relative" onclick="deletepic(event, {{ $key }})">  X </p> 
+                                <p data-array='{{ $alldata->slider_images }}' class="relative" onclick="deletepic(event, {{ $key }})" class="cursor-pointer">  X </p> 
                                 <img src='{{  URL::asset("/assets/images/$alldata->id/$image") }}'>                            
                             </div>   
                             @endforeach                         
@@ -162,7 +162,7 @@
 
                         </div>
                   
-                @endforeach
+                    @endforeach
 
                    
                     <button class="h-10 px-5  text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-lg focus:shadow-outline hover:bg-indigo-800">ADD</button>
