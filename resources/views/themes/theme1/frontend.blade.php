@@ -145,10 +145,10 @@ $groomname = explode(" ",$alldata->groom_name);
 
                         <div class="sliders">
                             
-                            @foreach (json_decode($alldata->slider_images) as $images)                              
+                            @foreach (json_decode($alldata->slider_images) as $images)                             
                             
 
-                            <div class="slider-list slid_one" style="background: url({{  URL::asset("assets/images/$alldata->id/$images") }}) no-repeat center; background-size: cover;">
+                            <div class="slider-list slid_one" style="background: url({{  URL::asset("assets/images/$alldata->id/slider/$images") }}) no-repeat center; background-size: cover;">
 
                                 <div class="slider-con sliderbox">
 
@@ -311,7 +311,9 @@ $groomname = explode(" ",$alldata->groom_name);
 
                         <div class="persons">
 
-                            <figure><img class="lozad" src="{{  URL::asset("assets/images/$alldata->id/$alldata->groom_image") }}" alt=""></figure>
+                            <figure>
+                                <img class="lozad" src="{{  URL::asset("assets/images/$alldata->id/$alldata->groom_image") }}" alt="">
+                            </figure>
                             
                             <div class="content">
 
@@ -388,9 +390,9 @@ $groomname = explode(" ",$alldata->groom_name);
 
                             <p>We inviting you and<br>your family on</p>
 
-                            <span>Saturday</span>
+                            <span>{{ date("l", strtotime($marriage->marriage_date)); }}</span>
 
-                            <h3>27-11-2022</h3>
+                            <h3>{{ date("d/m/y", strtotime($marriage->marriage_date)); }}</h3>
 
                             <p>{{ $alldata->home_location }}<br></p>
 
@@ -511,56 +513,30 @@ $groomname = explode(" ",$alldata->groom_name);
                         <div class="section-heading">
 
                             <h2>The Wedding Event</h2>
+<?php
 
+      $jsondata = "";
+        foreach (json_decode($alldata->events) as $key => $event) {
+            $startdate = date('Y-m-d', strtotime($event[1]));
+            $stattime = date('H:i', strtotime($event[1]));
+           
+            $jsondata .="{ 
+                'name': '$event[0]',
+'description':' $event[0]',
+'startDate': '$startdate',
+'startTime':'$stattime',
+'endTime':'23:59' },";
+
+        }
+$jsondata = substr($jsondata, 0, -1);
+$jsondata = str_replace("'",'"',$jsondata );
+?>
                             <div class="atcb" style="display:none;">
                             {
                               "name":"Event Series",
-                              "dates":[
-                                  {
-                                  "name":"મંડપ મુહૂર્ત",
-                                  "description":"મંડપ મુહૂર્ત",
-                                  "startDate":"2022-11-26",
-                                  "startTime":"07:15",
-                                  "endTime":"23:59"
-                                },
-                                {
-                                  "name":"સત્કાર સમારંભ",
-                                  "description":"સત્કાર સમારંભ",
-                                 "startDate":"2022-11-26",
-                                  "startTime":"11:30",
-                                  "endTime":"23:59"
-                                },
-                                 
-                                 {
-                              "name":"સાંજીના ગીત",
-                              "description":"સાંજીના ગીત",
-                            "startDate":"2022-11-26",
-                              "startTime":"19:00",
-                              "endTime":"23:59"
-                            },
-                                 {
-                              "name":"રાસ ગરબા",
-                              "description":"રાસ ગરબા",
-                             "startDate":"2022-11-26",
-                              "startTime":"20:00",
-                              "endTime":"23:59"
-                            },
-                                 {
-                              "name":"જાન પ્રસ્થાન",
-                              "description":"જાન પ્રસ્થાન",
-                              "startDate":"2022-11-27",
-                              "startTime":"09:00",
-                              "endTime":"23:59"
-                            },
-                                 {
-                              "name":"હસ્ત મેળાપ",
-                              "description":"હસ્ત મેળાપ",
-                              "startDate":"2022-11-27",
-                              "startTime":"19:00",
-                               "endTime":"23:59"
-                            }
-                                
-                              ],
+                              "dates":[                                
+                                    {!!  $jsondata !!}                       
+                                ],
                               "location":"World Wide Web",
                               "options":[
                                 "Apple",
@@ -570,6 +546,7 @@ $groomname = explode(" ",$alldata->groom_name);
                                 "Yahoo"
                               ],
                               "timeZone":"Asia/Kolkata",
+                              "trigger":"click",
                               "iCalFileName":"Multi-Date-Event"
                             }
                             </div>
@@ -587,9 +564,9 @@ $groomname = explode(" ",$alldata->groom_name);
 
                     @foreach (json_decode( $alldata->events) as $key => $items)
                     
-                    <div class="col-md-4 col-sm-6">
+                    <div class="col-md-4 col-sm-6 ">
 
-                        <div class="events">
+                        <div class="events eventlist">
 
                             <h2>{{ $items[0] }}</h2>
 
@@ -601,93 +578,7 @@ $groomname = explode(" ",$alldata->groom_name);
 
                     </div>
 
-                    @endforeach
-                     <!--
-                    સત્કાર સમારંભ
-
-                    -->
-
-                    {{-- <div class="col-md-4 col-sm-6">
-
-                        <div class="events">
-
-                            <h2><span>સત્કાર</span> સમારંભ</h2>
-                            
-                            <button style="height: auto;">બપોરે ૧૧:૩૦ કલાકે<p style="font-size: 16px;">૨૬-૧૧-૨૦૨૨, શનિવાર</p> </button>
-                            
-
-                        </div>
-
-                    </div>
-                   
-                   
-                    <!--
-                    સાંજીના ગીત
-                    -->
-                    <div class="col-md-4 col-sm-6">
-
-                        <div class="events">
-
-                            <h2>સાંજીના <span>ગીત</span> </h2>
-
-                            <button style="height: auto;">સાંજે ૭:૦૦ કલાકે<p style="font-size: 16px;">૨૬-૧૧-૨૦૨૨, શનિવાર</p> </button>
-                            
-                        </div>
-
-                    </div> 
-                
-
-                   <!--
-                   રાસ ગરબા
-
-                    -->
-                    <div class="col-md-4 col-sm-6">
-
-                        <div class="events">
-
-                            <h2><span>રાસ </span>ગરબા</h2>
-
-                             <button style="height: auto;">રાત્રે ૮:૦૦ કલાકે<p style="font-size: 16px;">૨૬-૧૧-૨૦૨૨, શનિવાર</p> </button>    
-                            
-
-                        </div>
-
-                    </div>                  
-                    
-                    <!--
-                    જાન પ્રસ્થાન
-
-                    -->
-
-                    <div class="col-md-4 col-sm-6">
-
-                        <div class="events">
-
-                            <h2><span>જાન</span> પ્રસ્થાન</h2>
-                            
-                            <button style="height: auto;">સવારે ૯:૦૦ કલાકે<p style="font-size: 16px;">તા : ૨૭-૧૧-૨૦૨૨, રવિવાર</p> </button>
-                            
-
-                        </div>
-
-                    </div>
-
-                    <!--
-                    હસ્ત મેળાપ
-                    -->
-
-                    <div class="col-md-4 col-sm-6">
-
-                        <div class="events">
-
-                            <h2>હસ્ત <span>મેળાપ</span> </h2>
-
-                            <button style="height: auto;"> સાંજે ૭:૦૦ કલાકે <p style="font-size: 16px;">તા : ૨૭-૧૧-૨૦૨૨, રવિવાર</p> </button>
-                            
-
-                        </div>
-
-                    </div>                  --}}
+                    @endforeach                     
 
 
                 </div>
@@ -759,7 +650,7 @@ $groomname = explode(" ",$alldata->groom_name);
                 <div class="row">
                     <div class="col-md-12 col-sm-6">
                         <div class="col-md-12 col-sm-12">
-                            <div class="events">
+                            <div class="otherdetails events w-full h-full">
                                 {!!  json_decode($alldata->other_details) !!}
                             </div>
                         </div>                        
@@ -789,51 +680,86 @@ $groomname = explode(" ",$alldata->groom_name);
 
                     </div>
 
-                </div>
+                </div>               
 
-                <div class="row gallery_container" id="gallery">
-                        @foreach (json_decode($alldata->slider_images) as $key => $image)
-
-                            <div class="inner">
+                <div class="masonry-gallery-rows" id="">
+                        @foreach (json_decode($alldata->image_gallery) as $key => $image)
+                         
                                 <div class="gallery">
 
                                     <figure>
 
-                                        <a href="{{  URL::asset("assets/images/$alldata->id/$images") }}">
+                                      
                                             <span><i class="fas fa-search"></i></span>
-                                            <img src="{{  URL::asset("/assets/images/$alldata->id/$image") }}" alt=""/>
-                                        </a>
+                                            <img src="{{  URL::asset("assets/images/$alldata->id/imggallary/$image") }}" alt=""/>
+                                       
 
                                     </figure>
-
                                 </div>
-                            </div>   
+                             
                   
-                    @endforeach    
-
-                                   
-                   
-
+                    @endforeach  
                 </div>
 
             </div>
 
         </section>    
 
-        <section class="banner-area section bg-img af">
+        <section class="banner-area section bg-img af contact-area section-bg">
 
             <div class="container">
 
                 <div class="row">
 
-                    <div class="col-md-12 col-sm-12">
+                    <div class="col-md-6 col-sm-12">
 
                         <div class="banner-con">
 
-                            <h2>We are going to...<span>                           
-                                {{-- <img src="assets/images/logo/logorm.png" alt="" 
-                                style="width:250px; height:150px;"/> --}}
-                            </span> Celebrate <h2>{{ $groomname[0] }} - {{ $bridename[0] }} Wedding<span>  </h2>
+                            <h2>We are going to...
+                            <span>                          
+                                
+                            </span> Celebrate <h2 class="groombridename">{{ $groomname[0] }} - {{ $bridename[0] }} <span></h2>  
+                                <h2>Wedding</h2>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6 col-sm-12">
+
+                        <div class="banner-con">
+
+                            <div class="contact-info md:flex-row w-full md:w-[500px]">
+
+                                <div class="info-list col-md-12">
+    
+                                    <div class="info-ico"><img src="{{  URL::asset("assets/images/icons/2.png") }}" alt=""></div>
+    
+                                    <div class="info-content1 banner-con">
+    
+                                        <h2>Location</h2>
+    
+                                        <p class="contactdetails">{{ $alldata->home_location }}<br></p>
+    
+                                    </div>
+    
+                                </div>
+    
+                                
+                                <div class="info-list col-md-12">
+    
+                                    <div class="info-ico"><img src="{{  URL::asset("assets/images/icons/4.png") }}" alt=""></div>
+    
+                                    <div class="info-content1 banner-con">
+    
+                                        <h2>Mobile Number</h2>
+    
+                                        <p class="contactdetails">{{ $alldata->mobile_number }}</p>
+    
+                                    </div>
+    
+                                </div>
+    
+                            </div>
 
                         </div>
 
@@ -1043,104 +969,8 @@ $groomname = explode(" ",$alldata->groom_name);
 
         </section> --}}
 
-        
+       
 
-        <section section-scroll='7' class="contact-area section section-bg">
-
-            <div class="container">
-
-                <div class="row">
-
-                    {{-- <div class="col-md-7 col-sm-6">
-
-                        <div id="map_wrapper">                            
-                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.3611064734887!2d72.67465055078996!3d23.047219184866623!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e87171ed67953%3A0x63a887286b57781c!2sSuryam%20Flora!5e0!3m2!1sen!2sin!4v1666264564678!5m2!1sen!2sin" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                        </div>
-
-                    </div> --}}
-                    <div class="col-md-12 col-sm-6">
-
-                        <div class="contact-info">
-
-                            <div class="info-list col-md-6">
-
-                                <div class="info-ico"><img src="{{  URL::asset("assets/images/icons/2.png") }}" alt=""></div>
-
-                                <div class="info-content">
-
-                                    <h2>Location</h2>
-
-                                    <p>{{ $alldata->home_location }}<br></p>
-
-                                </div>
-
-                            </div>
-
-                            
-                            <div class="info-list col-md-6">
-
-                                <div class="info-ico"><img src="{{  URL::asset("assets/images/icons/4.png") }}" alt=""></div>
-
-                                <div class="info-content">
-
-                                    <h2>Mobile Number</h2>
-
-                                    <p>{{ $alldata->mobile_number }}</p>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>                    
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <section section-scroll='7' class="contact-area section section-bg">
-
-            <div class="container">
-
-                <div class="row">
-
-                    {{-- <div class="col-md-7 col-sm-6">
-
-                        <div id="map_wrapper">                            
-                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.3611064734887!2d72.67465055078996!3d23.047219184866623!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e87171ed67953%3A0x63a887286b57781c!2sSuryam%20Flora!5e0!3m2!1sen!2sin!4v1666264564678!5m2!1sen!2sin" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                        </div>
-
-                    </div> --}}
-                    <div class="col-md-12 col-sm-6">
-
-                        <div class="gogreen">
-
-                            <div class="gogreen-list col-md-6">
-
-                                <img src="{{  URL::asset("assets/images/gogreen/gogreen1.jpg") }}" alt="">                               
-
-                            </div>
-
-                            <div class="gogreen-list col-md-6">
-
-                                <img src="{{  URL::asset("assets/images/gogreen/gogreen2.jpeg") }}" alt="">                               
-
-                            </div>                          
-                            
-
-                        </div>
-
-                    </div>                    
-
-                </div>
-
-            </div>
-
-        </section>
 
         <!--Contact area end here-->
 
@@ -1162,7 +992,9 @@ $groomname = explode(" ",$alldata->groom_name);
 
                         <div class="copyright">
 
-                            <p>Design with ❤️ by </p>
+                            <p>Design with ❤️ by <span class="companyname">
+                                <a href="https://cyberstrek.com/">CyberStrek Technologies</a>
+                            </span></p></p>
 
                         </div>
 
@@ -1239,15 +1071,14 @@ $groomname = explode(" ",$alldata->groom_name);
         <script src="{{  URL::asset("assets/theme1/js/main.js") }}"></script>
 
 
-
         <script src="https://maps.googleapis.com/maps/api/js"></script>
 
-        <script src="{{  URL::asset("assets/>theme1/js/lozad.min.js") }}"></script>
+        <script src="{{  URL::asset("assets/theme1/js/lozad.min.js") }}"></script>
 
 
         <script>
 
-function e() {
+    function e() {
 	    var e = new Date;
 	        e.setDate(19);
 	    var dd = e.getDate();
@@ -1268,8 +1099,8 @@ function e() {
 
         function initialize() {
 
-    const observer = lozad();
-    observer.observe();
+        const observer = lozad();
+        observer.observe();
 
                 var map;
 

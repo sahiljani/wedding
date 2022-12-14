@@ -10,7 +10,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
 
-                    <form method="POST" action="{{ route('store.view') }}" enctype="multipart/form-data" class="container mx-auto px-4 sm:px-8 flex gap-[14px]">
+                    <form method="POST" action="{{ route('store.user') }}" enctype="multipart/form-data" class="container mx-auto px-4 sm:px-8 flex gap-[14px]">
                       @csrf   
                         <input class="w-full h-10 px-3 text-base text-gray-700 placeholder-gray-600 border rounded-lg focus:shadow-outline" name="name" type="text" placeholder="Name"/>
 
@@ -19,7 +19,7 @@
                         <button class="h-10 px-5  text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-lg focus:shadow-outline hover:bg-indigo-800">ADD</button>
                     </form>
 
-            <div class="container mx-auto px-4 sm:px-8">
+                  <div class="container mx-auto px-4 sm:px-8">
                         <div class="py-8">
                           <div>
                             <h2 class="text-2xl font-semibold leading-tight">Clients</h2>
@@ -75,20 +75,26 @@
                                     <td
                                       class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-right"
                                     >
-                                      <button
+                                      <a
+                                      
+                                        href="{{ route('user.edit', ['id' => $item->id]) }}"
                                         type="button"
                                         class="inline-block text-gray-500 hover:text-gray-700"
                                       >
-                                        <svg
-                                          class="inline-block h-6 w-6 fill-current"
-                                          viewBox="0 0 24 24"
-                                        >
-                                          <path
-                                            d="M12 6a2 2 0 110-4 2 2 0 010 4zm0 8a2 2 0 110-4 2 2 0 010 4zm-2 6a2 2 0 104 0 2 2 0 00-4 0z"
-                                          />
-                                        </svg>
-                                      </button>
+                                       Edit
+                                  </a>
                                     </td>
+
+                                    <form method="POST" action="{{ route('delete.view', ['id' => $item->id]) }}" 
+                                      enctype="multipart/form-data" class="container mx-auto px-4 sm:px-8 flex gap-[14px]">
+                                      @csrf   
+                                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-right">
+                                      <button type="submit"
+                                        class="inline-block text-gray-500 hover:text-gray-700"
+                                      > Delete</button>
+                                    </td>
+                                    </form>
+                                    
                                   </tr>
                                   @endforeach
                                 </tbody>

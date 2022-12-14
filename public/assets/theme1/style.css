@@ -3271,6 +3271,11 @@ header .main-menus nav ul li a:hover {
 /*....................................
 21. Event area start here
 ....................................*/
+.eventlist{
+  width: 300px;
+  height: 300px;
+  margin: 10px;
+}
 .event-area .events {
   display: block;
   position: relative;
@@ -3283,11 +3288,13 @@ header .main-menus nav ul li a:hover {
   -moz-border-radius: 28px;
   -ms-border-radius: 28px;
   border-radius: 28px;
-  margin-top: -50px;
+  /* margin-top: -50px; */
+ 
 }
 .event-area .events h2 {
   font-weight: 700;
   color: #f33c3c;
+  word-break: break-word;
 }
 .event-area .events h2 span {
   font-weight: 300;
@@ -3475,14 +3482,16 @@ footer .arroe-button a {
 span.logoname {
   color: white;
 }
-.contact-area .contact-info{
-  display: flex;
+.contactdetails{
+  color: white;
+    font-size: 20px;
+}
+.groombridename{
+  font-weight: 800!important;
 }
 .gogreen{ 
-
   display: flex;
   align-items: center;
-
 }
 
 .gallery_container {
